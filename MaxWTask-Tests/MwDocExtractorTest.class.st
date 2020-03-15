@@ -4,18 +4,16 @@ Class {
 	#category : #'MaxWTask-Tests'
 }
 
-{ #category : #'helper methods' }
-MwDocExtractorTest >> executeBlockForScopedClass: aBlock tempClassName: aClassNameString instanceVariables: anInstanceVariablesString classVariables: aClassVariablesString [
-	"executes the block for a temporal-scoped class with the specified parameters"
-	"Do not use an existing class name with this method!"
-	"scope: class-variables  &  instance-variables"	
-	Object subclass: (aClassNameString asSymbol)
-	instanceVariableNames: anInstanceVariablesString
-	classVariableNames: aClassVariablesString
-	package: 'MaxWTask'
-.
-aBlock value: (aClassNameString asSymbol).
-(aClassNameString asSymbol) asClass removeFromSystem
+{ #category : #tests }
+MwDocExtractorTest >> testClassObject [
+	"Verifies that the classObject getter and setter work"
+	| classToExtractDocumentation docExtractor|
+	classToExtractDocumentation := MwHelperClassForTestingDocumentationExtraction .
+	docExtractor := MwDocExtractor new.
+	docExtractor classObject: classToExtractDocumentation.
+self assert: (docExtractor classObject) equals: classToExtractDocumentation
+	
+	
 ]
 
 { #category : #tests }
@@ -65,8 +63,8 @@ MwDocExtractorTest >> testGetClassVariables [
 	classToExtractDocumentation := MwHelperClassForTestingDocumentationExtraction .
 	docExtractor := MwDocExtractor new.
 	docExtractor classObject: classToExtractDocumentation.
-	expectedClassVariable1 := 'classVar1'.
-	expectedClassVariable2 := 'classVar2'.
+	expectedClassVariable1 := 'ClassVar1'.
+	expectedClassVariable2 := 'ClassVar2'.
 
 self assert: (((docExtractor getClassVariables ) includes: expectedClassVariable1)
 					and: 	((docExtractor getClassVariables) includes: expectedClassVariable2))

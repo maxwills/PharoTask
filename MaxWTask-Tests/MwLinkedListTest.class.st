@@ -6,8 +6,7 @@ Class {
 
 { #category : #behavior }
 MwLinkedListTest >> testAdd [
-	"comment stating purpose of instance-side message"
-	"scope: class-variables  &  instance-variables"	
+	"Verifies that an item can be added an retrieved from the list"
 			
 	| linkedList |
 	linkedList := MwLinkedList new.
@@ -18,9 +17,8 @@ MwLinkedListTest >> testAdd [
 
 { #category : #behavior }
 MwLinkedListTest >> testCount [
-	"comment stating purpose of instance-side message"
-	"scope: class-variables  &  instance-variables"	
-			
+	"Verifies that the item count of the list is the expected one"
+	
 	| linkedList |
 	linkedList := MwLinkedList new.
 	linkedList add: 1.
@@ -30,8 +28,7 @@ MwLinkedListTest >> testCount [
 
 { #category : #behavior }
 MwLinkedListTest >> testForeachItem [
-	"comment stating purpose of instance-side message"
-	"scope: class-variables  &  instance-variables"	
+	"Verifies that a block is executed for each element of the list"
 			
 	| linkedList sum |
 	sum := 0.
@@ -46,16 +43,16 @@ MwLinkedListTest >> testForeachItem [
 
 { #category : #behavior }
 MwLinkedListTest >> testInitialization [
-	"comment statiasdng purpose of instance-side message"
+	"Verifies that a list can be initialized properly"
 	| linkedList |
 	linkedList := MwLinkedList new.
-	self assert: linkedList isNotNil
+	self assert: linkedList isNotNil.
+	self assert: linkedList count equals: 0
 ]
 
 { #category : #behavior }
 MwLinkedListTest >> testIsEmpty [
-	"comment stating purpose of instance-side message"
-	"scope: class-variables  &  instance-variables"	
+	"Verifies that list with no items 'isEmpty'"
 			
 	| linkedList |
 	linkedList := MwLinkedList new.
@@ -68,9 +65,20 @@ MwLinkedListTest >> testIsEmpty [
 ]
 
 { #category : #behavior }
+MwLinkedListTest >> testItemAt [
+	"Test if the item at the specified position is what is expected to be"
+	"Note: this test relies in other method of the class: add"
+	| linkedList |
+	linkedList := MwLinkedList new.
+	linkedList add: 1. "item at 0"
+	linkedList add: 'itemAt1'. "item at 1"
+	self assert: (linkedList itemAt: 1) equals: 'itemAt1'.
+	
+]
+
+{ #category : #behavior }
 MwLinkedListTest >> testListAddAndRetrieveItem [
-	"comment stating purpose of instance-side message"
-	"scope: class-variables  &  instance-variables"	
+	"Verifies composed behavior"
 			
 	| linkedList |
 	linkedList := MwLinkedList new.
@@ -85,9 +93,8 @@ MwLinkedListTest >> testListAddAndRetrieveItem [
 
 { #category : #behavior }
 MwLinkedListTest >> testListAddItemsAndCount [
-	"comment stating purpose of instance-side message"
-	"scope: class-variables  &  instance-variables"	
-			
+		"Verifies composed behavior"
+		
 	| linkedList |
 	linkedList := MwLinkedList new.
 	linkedList add: 1.
@@ -99,9 +106,7 @@ MwLinkedListTest >> testListAddItemsAndCount [
 
 { #category : #behavior }
 MwLinkedListTest >> testListAddSingleItemAndCount [
-	"comment stating purpose of instance-side message"
-	"scope: class-variables  &  instance-variables"	
-			
+	"Verifies composed behavior"
 	| linkedList |
 	linkedList := MwLinkedList new.
 	linkedList add: 1.
@@ -111,9 +116,7 @@ MwLinkedListTest >> testListAddSingleItemAndCount [
 
 { #category : #behavior }
 MwLinkedListTest >> testListForeachItemAlternativeCount [
-	"comment stating purpose of instance-side message"
-	"scope: class-variables  &  instance-variables"	
-			
+	"Verifies composed behavior. Tries to count the number of items by using the foreachItem message"	
 	| linkedList counter|
 	counter := 0.
 	linkedList := MwLinkedList new.
@@ -126,34 +129,8 @@ MwLinkedListTest >> testListForeachItemAlternativeCount [
 ]
 
 { #category : #behavior }
-MwLinkedListTest >> testListRemoveItem [
-	"comment stating purpose of instance-side message"
-	"scope: class-variables  &  instance-variables"	
-			
-	| linkedList item itemFound|
-	item := 1234.
-	linkedList := MwLinkedList new.
-	linkedList add: 1.
-	linkedList add: 'stringItem'.			
-	linkedList add: item.
-	linkedList add: nil.
-	
-	self assert: linkedList count equals: 4.
-
-	linkedList remove: item.
-	self assert: linkedList count equals: 3.
-
-	itemFound := false.
-	linkedList foreachItem: [ :x | (x = item) ifTrue: [ itemFound := true ] ].
-	self assert: itemFound equals: false
-	
-]
-
-{ #category : #behavior }
 MwLinkedListTest >> testListWithItemsNotEmpty [
-	"comment stating purpose of instance-side message"
-	"scope: class-variables  &  instance-variables"	
-			
+"Verifies composed behavior"
 	| linkedList |
 	linkedList := MwLinkedList new.
 	linkedList add: 1.
@@ -162,9 +139,7 @@ MwLinkedListTest >> testListWithItemsNotEmpty [
 
 { #category : #behavior }
 MwLinkedListTest >> testNewListCountIsZero [
-	"comment stating purpose of instance-side message"
-	"scope: class-variables  &  instance-variables"	
-			
+	"Verifies that a new list item count is zero"
 	| linkedList |
 	linkedList := MwLinkedList new.
 	self assert: linkedList count equals: 0
@@ -172,10 +147,31 @@ MwLinkedListTest >> testNewListCountIsZero [
 
 { #category : #behavior }
 MwLinkedListTest >> testNewListIsEmpty [
-	"comment stating purpose of instance-side message"
-	"scope: class-variables  &  instance-variables"	
-			
+	"Verifies that a new list is empty"
 	| linkedList |
 	linkedList := MwLinkedList new.
 	self assert: linkedList isEmpty equals: true
+]
+
+{ #category : #behavior }
+MwLinkedListTest >> testRemove [
+	"Verifies that the specified item is removed from the list"
+			
+	| linkedList itemToRemove itemFound|
+	itemToRemove := 1234.
+	linkedList := MwLinkedList new.
+	linkedList add: 1.
+	linkedList add: 'stringItem'.			
+	linkedList add: itemToRemove.
+	linkedList add: nil.
+	
+	self assert: linkedList count equals: 4.
+
+	linkedList remove: itemToRemove.
+	self assert: linkedList count equals: 3.
+
+	itemFound := false.
+	linkedList foreachItem: [ :x | (x = itemToRemove) ifTrue: [ itemFound := true ] ].
+	self assert: itemFound equals: false
+	
 ]

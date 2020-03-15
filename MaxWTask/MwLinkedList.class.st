@@ -1,3 +1,17 @@
+"
+""I represent a linked list""
+
+""I implement some basic list functionalities, while hiding the 'link-complexity' to the user""
+
+""Collaborators: Relies on the MwLinkedListLink class (a link that holds data and a referent to the next link)""
+
+""Example:""
+
+| linkedList |
+	linkedList := MwLinkedList new.
+	linkedList add: 7. ""adds an item with value 7""
+	(linkedList itemAt: 0) = 7. ""should be true""
+"
 Class {
 	#name : #MwLinkedList,
 	#superclass : #Object,
@@ -10,7 +24,6 @@ Class {
 { #category : #'list-behavior' }
 MwLinkedList >> add: anObject [
 	"Adds(appends) an object to the list"
-	"scope: class-variables  &  instance-variables"
 	| newLink |
 	newLink := MwLinkedListLink new.
 	newLink linkValue: anObject.
@@ -23,9 +36,6 @@ MwLinkedList >> add: anObject [
 { #category : #'list-behavior' }
 MwLinkedList >> count [
 	"Counts the element of the linked list. Iterative implementation"
-
-	"scope: class-variables  &  instance-variables"
-
 	firstLink
 		ifNil: [ ^ 0 ]
 		ifNotNil: [ | currentLink counter |
@@ -40,8 +50,7 @@ MwLinkedList >> count [
 
 { #category : #'list-behavior' }
 MwLinkedList >> foreachItem: aBlock [
-	"Executes the specified block over each item of the list. DO NOT MODIFY THE LIST WITHIN THE BLOCK!. Iterative implementation"
-	"scope: class-variables  &  instance-variables"				
+	"Executes the specified block over each item of the list. Note: DO NOT MODIFY THE LIST WITHIN THE BLOCK!. Iterative implementation"			
 	firstLink
 		ifNotNil: [ | currentLink |
 			currentLink := firstLink.
@@ -54,8 +63,6 @@ MwLinkedList >> foreachItem: aBlock [
 { #category : #'list-behavior' }
 MwLinkedList >> isEmpty [  
 	"Returns true if the list is empty"
-
-	"scope: class-variables  &  instance-variables"
    ^ (firstLink isNil)
 
 			
@@ -63,8 +70,7 @@ MwLinkedList >> isEmpty [
 
 { #category : #'list-behavior' }
 MwLinkedList >> itemAt: anInteger [
-	"Returns the value of the item at the specified index"
-	"scope: class-variables  &  instance-variables"				
+	"Returns the value of the item at the specified index"			
 	firstLink
 		ifNotNil: [ | linkAtIndex |
 			linkAtIndex := firstLink nthNext: anInteger.
@@ -76,9 +82,6 @@ MwLinkedList >> itemAt: anInteger [
 { #category : #'list-behavior' }
 MwLinkedList >> remove: anObject [ 
 	"Removes the first occurrence of an object from the list. Iterative implementation"
-
-	"scope: class-variables  &  instance-variables"
-
 	self isEmpty ifTrue: [ self error: 'item could not be found' ].
 	
 	(firstLink linkValue) = anObject
@@ -89,7 +92,7 @@ MwLinkedList >> remove: anObject [
 			[ next ]
 				whileNotNil: [ 
 				   (next linkValue) = anObject
-						ifTrue: [ current nextLink: next nextLink . ^ nil]
+						ifTrue: [ current nextLink: next nextLink . ^ nil] "here is the 'deletion'"
 						ifFalse:[ current := next. next := next nextLink ].
 				]]. ^ nil
 			 

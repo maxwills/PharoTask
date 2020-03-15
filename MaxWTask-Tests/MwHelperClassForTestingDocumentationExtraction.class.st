@@ -1,3 +1,11 @@
+"
+Class part:
+""I am a class that does nothing, but I have predictable members which can be queried for testing""
+
+Responsibility and Collaborator:
+""My class/instance variables/methods will are expected to be fixed for MwDocExtratorTest""
+
+"
 Class {
 	#name : #MwHelperClassForTestingDocumentationExtraction,
 	#superclass : #Object,
@@ -6,8 +14,8 @@ Class {
 		'instanceVar2'
 	],
 	#classVars : [
-		'classVar1',
-		'classVar2'
+		'ClassVar1',
+		'ClassVar2'
 	],
 	#category : #'MaxWTask-Tests'
 }
@@ -44,5 +52,5 @@ MwHelperClassForTestingDocumentationExtraction >> instanceMethod2: anObject [
 MwHelperClassForTestingDocumentationExtraction >> instanceMethod3: anObject1 anotherParam: anObject2 [
 	"comment stating purpose of instance-side message"
 	"scope: class-variables  &  instance-variables"	
-	^ 'instanceMethod2 is here. Params: ', anObject1 asString, ' ', anObject2 asString
+	^ 'instanceMethod3 is here. Params: ', anObject1 asString, ' ', anObject2 asString
 ]

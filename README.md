@@ -1,7 +1,7 @@
 # PharoTask
 Repository for the Pharo Task. Implemented in a Pharo 8.0 - 64bits image.
 
-The implemented clases and test are in the packages:
+The implemented classes and tests are in the packages:
 - MaxWTask
 - MaxWTask-Tests
 
